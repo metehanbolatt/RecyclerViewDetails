@@ -7,6 +7,7 @@ import com.metehanbolat.recyclerviewdetails.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val todoAdapter by lazy { TodoAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,5 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         val todoList = TodoDb.getTodos()
+
+        todoAdapter.updateList(todoList)
     }
 }
