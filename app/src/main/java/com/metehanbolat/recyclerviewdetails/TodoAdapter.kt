@@ -2,14 +2,15 @@ package com.metehanbolat.recyclerviewdetails
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.metehanbolat.recyclerviewdetails.databinding.TodoItemDesignBinding
 
-class TodoAdapter: RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
+class TodoAdapter: ListAdapter<TodoModel, TodoAdapter.TodoViewHolder>(TodoDiffUtilCallback()) {
 
-    var onTodoClick: (TodoModel) -> Unit = {}
+    //var onTodoClick: (TodoModel) -> Unit = {}
 
-    private val todoList = arrayListOf<TodoModel>()
+    //private val todoList = arrayListOf<TodoModel>()
 
     class TodoViewHolder(val binding: TodoItemDesignBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -19,23 +20,10 @@ class TodoAdapter: RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        val currentItem = todoList[position]
+        val currentItem = getItem(position)
         holder.binding.apply {
             todoItem = currentItem
-            checkbox.setOnCheckedChangeListener { _, b ->
-                if (b) {
-                    onTodoClick(currentItem)
-                }
-            }
+
         }
     }
-
-    override fun getItemCount(): Int = todoList.size
-
-    fun updateList(updatedList: List<TodoModel>) {
-        todoList.clear()
-        todoList.addAll(updatedList)
-        notifyDataSetChanged()
-    }
-
 }

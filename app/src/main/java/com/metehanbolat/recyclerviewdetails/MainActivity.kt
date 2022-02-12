@@ -18,15 +18,19 @@ class MainActivity : AppCompatActivity() {
 
         val todoList = TodoDb.getTodos()
 
-        todoAdapter.updateList(todoList)
+        //todoAdapter.updateList(todoList)
 
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
             adapter = todoAdapter
         }
 
+        todoAdapter.submitList(todoList)
+
+        /*
         todoAdapter.onTodoClick = {
             binding.textView.text = it.todoText
         }
+         */
     }
 }
